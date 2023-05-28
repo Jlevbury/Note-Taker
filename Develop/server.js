@@ -4,6 +4,7 @@ const util = require ('util');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
+const { v4: uuidv4 } = require('uuid');
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -23,8 +24,28 @@ app.get('/api/notes', (req, res) => {
     // read the db.json file and return all saved notes as JSON
 });
 
-app.post('/api/notes', (req, res) => {
-    // receive a new note, add it to db.json, then return the new note
+app.post('/api/notes', async (req, res) => {
+    try {
+        // Step 1: Read existing notes
+        const data = await readFileAsync('./db/db.json', 'utf8');
+        const notes = JSON.parse(data);
+
+        // Step 2: Prepare the new note
+        const newNote = req.body;
+        newNote.id = uuidv4(); // attach a unique id to our new note
+
+        // Step 3: Add the new note to our array of notes
+        notes.push(newNote);
+
+        // Step 4: Write the updated notes back to our json file
+        await writeFileAsync('./db/db.json', JSON.stringify(notes));
+
+        // Send back the new note to the client
+        res.json(newNote);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error saving the note' });
+    }
 });
 
 app.delete('/api/notes/:id', (req, res) => {
