@@ -1,6 +1,12 @@
 const express = require('express');
+const fs = require ('fs');
+const util = require ('util');
 const path = require('path');
 const app = express();
+const PORT = process.env.PORT || 3001;
+
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,3 +30,15 @@ app.post('/api/notes', (req, res) => {
 app.delete('/api/notes/:id', (req, res) => {
     // receive a query parameter containing the id of a note to delete
 });
+
+app.get('/api/notes', async (req, res) => {
+    try {
+        const data = await readFileAsync('./db/db.json', 'utf8');
+        const notes = JSON.parse(data);
+        res.json(notes);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error reading notes' });
+    }
+});
+app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
