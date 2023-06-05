@@ -1,6 +1,6 @@
 # Note Taker App!
 
-
+https://enigmatic-ravine-22784.herokuapp.com/notes
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -22,7 +22,11 @@ A simple note taking application that lets the end user add notes to a running l
 N/A
 
 ## Usage
-Simply start by clicking the "Note Title" text, Once entering a title for the note, the body of the note can be written by clicking the "Note Text" text below the title. Once a satisfactory note has been generated, a save icon will appear in the title bar of the application. By clicking the save icon the note will be added to the list appearing on the left hand portion of the applications interface. To revisit an existing note, just click the titleof the note in the sid ebar to acces it.
+Simply start by clicking the "Note Title" text, Once entering a title for the note, the body of the note can be written by clicking the "Note Text" text below the title. Once a satisfactory note has been generated, a save icon will appear in the title bar of the application. By clicking the save icon the note will be added to the list appearing on the left hand portion of the applications interface. To revisit an existing note, just click the titleof the note in the sidebar to access it.
+
+
+![Note_taker_demo](https://github.com/Jlevbury/Note-Taker/assets/125767916/e1441302-d01a-4184-8206-93a328718481)
+
 
 ## License
 
